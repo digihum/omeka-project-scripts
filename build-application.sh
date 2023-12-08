@@ -19,8 +19,6 @@ YELLOW="\033[0;33m"
 WHITE='\033[0;37m'
 RESET='\033[0m'
 
-base_dir='/var/www/'
-relative_dir='html'
 env=$2
 
 ################################################################################
@@ -78,12 +76,6 @@ Build()
     Checks
     CheckRequirements
 
-    # Create composer.json from template
-    echo -e "${GREEN}Creating composer.json${RESET}"
-    cp scripts/composer.json.template composer.json
-
-    php scripts/composer-merge.php
-
     # Use composer to build the application
     echo -e "${GREEN}Running composer${RESET}"
 
@@ -92,7 +84,7 @@ Build()
             composer install --dev --prefer-source
         else 
             # assumes prod or staging
-            composer install --no-dev
+            composer install --no-dev --prefer-dist
     fi
     
 
